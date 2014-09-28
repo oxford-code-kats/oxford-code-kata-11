@@ -1,8 +1,12 @@
 
-def main(methods=['insert_naive', 'insert_slow']):
+def main(methods=None):
     import sorter
     import time
     timings = []
+    if methods is None:
+        # methods = ['insert_naive', 'insert_slow']
+        methods = [name for name in dir(sorter)
+                    if name.startswith("insert_")]
     import random
     items = range(1,1000)
     random.shuffle(items)
@@ -13,7 +17,7 @@ def main(methods=['insert_naive', 'insert_slow']):
         start_time = time.time()
         for i in items:
             test_sorter.add(i)
-        test_sorter.as_list()
+            test_sorter.as_list()
         timings.append((time.time()-start_time, method_name))
     print "Done Testing"
     print timings
